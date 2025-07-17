@@ -1,0 +1,18 @@
+# Environnement virtuel
+env/
+venv/
+
+# Fichiers de base de données
+*.sqlite3
+
+# Fichiers de migration
+*/migrations/__pycache__/
+*/__pycache__/
+*.py[cod]
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Paramètres secrets
+*.env
