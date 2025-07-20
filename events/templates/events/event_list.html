@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Événements JoinUp</title>
+</head>
+<body>
+    <h1>Liste des événements</h1>
+    <ul>
+        {% for event in events %}
+            <li>
+                <strong>{{ event.title }}</strong><br>
+                {{ event.date }} - {{ event.location }}<br>
+                {{ event.description|linebreaks }}
+            </li>
+        {% empty %}
+            <li>Aucun événement trouvé.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
