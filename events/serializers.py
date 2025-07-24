@@ -3,16 +3,21 @@ from .models import Event, Participation, Group, Message
 from users.serializers import UserSerializer
 
 class EventSerializer(serializers.ModelSerializer):
-    creator_username = serializers.CharField(source='creator.username', read_only=True)
-    is_participating = serializers.SerializerMethodField()
-
     class Meta:
         model = Event
-        fields = '__all__'
+        fields = ['title', 'description', 'date', 'location', 'creator']
 
-    def get_is_participating(self, obj):
-        user = self.context.get('request').user
-        return user in obj.participants.all() if user.is_authenticated else False
+    def validate(self, data):
+        # Validation des données avant la sauvegarde
+        if not data.get('title'):
+            raise serializers.ValidationError("Le titre est requis.")
+        if not data.get('description'):
+            raise serializers.ValidationError("La description est requise.")
+        if not data.get('date'):
+            raise serializers.ValidationError("La date est requise.")
+        if not data.get('location'):
+            raise serializers.ValidationError("Le lieu est requis.")
+        return data
 
 class ParticipationSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
